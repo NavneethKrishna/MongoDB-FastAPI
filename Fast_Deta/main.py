@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = ["*"]
 
-client = MongoClient(ConnectionString)
+client = MongoClient(CONNECTIONSTRING)
 mydb= client['Bus_DB'] 
 information = mydb.Bus_details
 

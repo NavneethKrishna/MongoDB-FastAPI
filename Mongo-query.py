@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from pprint import pprint
 
 
-client = MongoClient("mongodb+srv://Lavy:bus@bus.u3kvn.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(CONNECTIONSTRING)
 mydb= client['Bus_DB'] 
 information = mydb.Bus_details
 
