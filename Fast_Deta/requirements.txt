@@ -1,0 +1,7 @@
+fastapi
+deta
+python-multipart
+pymongo
+pydantic
+bson
+dnspython
