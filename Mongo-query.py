@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from pymongo import MongoClient
 from pprint import pprint
 
@@ -7,19 +7,38 @@ client = MongoClient(CONNECTIONSTRING)
 mydb= client['Bus_DB'] 
 information = mydb.Bus_details
 
-
-# information.update_one({"vehicle_id": 1, "date_field": "10-01-2022"}, {"$set":{'live':0}})
-# information.delete_many({ })
-
+# Records to insert a record to the MongoDB Database
 record={
-    'Vehicle_id': 125,
+    'Vehicle_id': 145,
     'Source': 'Bengaluru',
-    'Destination': 'Mysore',
-    'Date': datetime(2022, 8, 4),
+    'Destination': 'Mangalore',
+    'Date': '10/08/2022',
     'Day': 'Monday',
-    'Departure_Time': datetime(2022, 8, 4, 1, 30, 00),
-    'Arrival_Time': datetime(2022, 8, 4, 4, 30, 00),
-    'Duration': '3h 00m'
+    'Departure_Time': '23:30',
+    'Arrival_Time': '7:00',
+    'Duration': '7h 30m'
 }
 
+# Insert Query
 information.insert_one(record)
+
+
+# Query to retrive Vehicle id
+vehicle_ids = list(mydb.Bus_details.find({}, {
+    "Vehicle_id": 1, "_id":False
+}))
+
+vehicle_id = []
+for i in vehicle_ids:
+    vehicle_id.append(i['Vehicle_id'])
+print(vehicle_id)
+
+
+# Query to retrieve Dates based on source and Destination
+dates = list(mydb.Bus_details.find({
+    "Source": 'Bengaluru','Destination': 'Mangalore',
+}, {
+    "Date": 1, "_id":False, 
+}))
+for i in dates:
+    print(i)

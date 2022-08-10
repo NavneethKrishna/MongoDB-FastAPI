@@ -40,3 +40,22 @@ async def insert(bus_details: BusDetails):
     record= bus_details.dict()
     information.insert_one(parse_json(record))
     return record
+
+@app.get("/")   
+async def get_all_vehicles():
+    vehicle_ids = list(mydb.Bus_details.find({}, {
+        "Vehicle_id": 1, "_id":False
+    }))
+
+    vehicle_id = []
+    for i in vehicle_ids:
+        vehicle_id.append(i['Vehicle_id'])
+    return vehicle_id
+
+@app.get("/Source/{Source}/Destination/{Destination}/get_bus_dates/")   
+async def get_bus_dates(Source, Destination):
+    date = []
+    dates = list(mydb.Bus_details.find({"Source": Source,'Destination': 'Mangalore'}, {"Date": 1, "_id":False}))
+    for i in dates:
+        date.append(i['Date'])
+    return date
