@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = ["*"]
 
-client = MongoClient("mongodb+srv://Lavy:bus@bus.dumimbp.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(CONNECTIONSTRING)
 mydb= client['Bus_DB'] 
 information = mydb.Bus_details
 
