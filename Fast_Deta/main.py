@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = ["*"]
 
-client = MongoClient(CONNECTIONSTRING)
+client = MongoClient("mongodb+srv://Lavy:bus@bus.dumimbp.mongodb.net/?retryWrites=true&w=majority")
 mydb= client['Bus_DB'] 
 information = mydb.Bus_details
 
@@ -55,7 +55,17 @@ async def get_all_vehicles():
 @app.get("/Source/{Source}/Destination/{Destination}/get_bus_dates/")   
 async def get_bus_dates(Source, Destination):
     date = []
-    dates = list(mydb.Bus_details.find({"Source": Source,'Destination': 'Mangalore'}, {"Date": 1, "_id":False}))
+    dates = list(mydb.Bus_details.find({"Source": Source,'Destination': Destination}, {"Date": 1, "_id":False}))
     for i in dates:
-        date.append(i['Date'])
+        if i['Date'] not in date:
+            date.append(i['Date'])
     return date
+
+@app.get("/Source/{Source}/Destination/{Destination}/get_duration/")   
+async def get_duration(Source, Destination):
+    Duration_lst = []
+    duration = list(mydb.Bus_details.find({'Source': Source,'Destination': Destination}, {"Duration": 1, "_id":False }))
+    for i in duration:
+        if i['Duration'] not in Duration_lst:
+            Duration_lst.append(i['Duration'])
+    return Duration_lst

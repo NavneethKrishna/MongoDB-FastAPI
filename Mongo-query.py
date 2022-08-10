@@ -22,7 +22,6 @@ record={
 # Insert Query
 information.insert_one(record)
 
-
 # Query to retrive Vehicle id
 vehicle_ids = list(mydb.Bus_details.find({}, {
     "Vehicle_id": 1, "_id":False
@@ -33,7 +32,6 @@ for i in vehicle_ids:
     vehicle_id.append(i['Vehicle_id'])
 print(vehicle_id)
 
-
 # Query to retrieve Dates based on source and Destination
 dates = list(mydb.Bus_details.find({
     "Source": 'Bengaluru','Destination': 'Mangalore',
@@ -41,4 +39,13 @@ dates = list(mydb.Bus_details.find({
     "Date": 1, "_id":False, 
 }))
 for i in dates:
-    print(i)
+    print(i['Date'])
+
+# Query to retrieve Duration based on source and Destination
+duration = list(mydb.Bus_details.find({
+    "Source": 'Bengaluru','Destination': 'Mangalore',
+}, {
+    "Duration": 1, "_id":False, 
+}))
+for i in duration:
+    print(i['Duration'])
